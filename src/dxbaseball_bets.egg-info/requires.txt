@@ -1,0 +1,6 @@
+loguru>=0.7.3
+pandas>=3.0.2
+pybaseball>=2.2.7
+python-dotenv>=1.2.2
+requests>=2.33.1
+sqlmodel>=0.0.38

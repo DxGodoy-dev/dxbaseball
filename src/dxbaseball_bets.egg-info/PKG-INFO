@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: dxbaseball-bets
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: loguru>=0.7.3
+Requires-Dist: pandas>=3.0.2
+Requires-Dist: pybaseball>=2.2.7
+Requires-Dist: python-dotenv>=1.2.2
+Requires-Dist: requests>=2.33.1
+Requires-Dist: sqlmodel>=0.0.38
