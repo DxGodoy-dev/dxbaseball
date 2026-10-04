@@ -27,3 +27,7 @@
 2026-05-08 22:54:12 | INFO     | src.dxbaseball_bets.api.mlb_client:get_live_feed:75 | MLB_API: Descargando feed del juego 748537
 2026-05-11 18:19:07 | INFO     | src.dxbaseball_bets.api.mlb_client:get_live_feed:75 | MLB_API: Descargando feed del juego 748537
 2026-05-11 18:19:26 | INFO     | src.dxbaseball_bets.api.mlb_client:get_live_feed:75 | MLB_API: Descargando feed del juego 748537
+2026-10-03 18:07:36 | INFO     | src.dxbaseball_bets.api.mlb_client:get_day_schedule:94 | MLB_API: 4 juegos encontrados para 10/03/2026
+2026-10-03 18:08:33 | INFO     | src.dxbaseball_bets.api.mlb_client:get_day_schedule:94 | MLB_API: 4 juegos encontrados para 10/03/2026
+2026-10-03 18:08:33 | INFO     | src.dxbaseball_bets.api.mlb_client:get_live_feed:75 | MLB_API: Descargando feed del juego 849829
+2026-10-03 18:09:34 | INFO     | src.dxbaseball_bets.api.mlb_client:get_live_feed:75 | MLB_API: Descargando feed del juego 849830
