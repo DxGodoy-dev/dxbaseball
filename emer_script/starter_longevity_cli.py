@@ -53,7 +53,7 @@ def fetch_starter_longevity(pitcher_id, pitcher_name):
 
 def main():
     client = MLBClient()
-    game_id = 849825 # ID confirmado SD vs MIL
+    game_id = 849834 # ID confirmado SD vs MIL
     
     feed = client.get_live_feed(game_id)
     if not feed: 

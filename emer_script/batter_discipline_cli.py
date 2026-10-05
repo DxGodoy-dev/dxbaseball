@@ -66,7 +66,7 @@ def print_discipline(team_name, batters):
 
 def main():
     client = MLBClient()
-    game_id = 849825
+    game_id = 849834
     
     feed = client.get_live_feed(game_id)
     if not feed: 

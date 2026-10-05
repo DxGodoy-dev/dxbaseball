@@ -72,7 +72,7 @@ def print_matchup(team_name, batters, pitcher_name, pitcher_id):
 
 def main():
     client = MLBClient()
-    game_id = 849825 # ID confirmado de SD vs MIL
+    game_id = 849834 # ID confirmado de SD vs MIL
     print(f"\n[INFO] Descargando rosters y probables para el juego {game_id}...")
     
     feed = client.get_live_feed(game_id)

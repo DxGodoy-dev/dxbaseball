@@ -2,7 +2,6 @@ import sys
 from pathlib import Path
 import statsapi
 import concurrent.futures
-from datetime import datetime
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR))
@@ -44,15 +43,17 @@ def fetch_last_game_stats(batter_id, batter_name):
         k = s.get('strikeOuts', 0)
         
         # Marcador visual si dio hit en su último juego
-        hit_marker = "🔥" if hits > 0 else ""
+        hit_marker = "🔥" if hits > 0 else "  "
         
-        return f"{batter_name:<22} | {date:<10} | {hits}-{ab} {hit_marker:<2} | HR: {hr} | RBI: {rbi} | BB: {bb} | K: {k}"
-    except Exception:
-        pass
-        
-    return f"{batter_name:<22} | ERROR O SIN DATOS"
+        return f"{batter_name:<22} | {date:<10} | {hits}-{ab} {hit_marker} | HR: {hr} | RBI: {rbi} | BB: {bb} | K: {k}"
+    except Exception as e:
+        return f"{batter_name:<22} | ERROR INTERNO"
 
 def print_last_game(team_name, batters):
+    if not batters:
+        print(f"\n⚠️ No se encontraron bateadores para {team_name}.")
+        return
+        
     print(f"\n{'='*75}")
     print(f"⚾ RENDIMIENTO EN SU ÚLTIMO PARTIDO JUGADO: {team_name.upper()}")
     print(f"{'='*75}")
@@ -69,29 +70,44 @@ def print_last_game(team_name, batters):
             
         for res in results:
             if res: print(res)
-            
+
 def main():
-    game_id = 849825
-    print(f"\n🎯 Analizando momentum para el Juego ID: {game_id}")
+    game_id = 849834
+    print(f"\n🎯 Analizando momentum para el Juego ID: {game_id}...")
     
-    client = MLBClient()
-    feed = client.get_live_feed(game_id)
-    if not feed: 
-        print("❌ Error: No se pudo obtener el feed del juego.")
-        return
+    try:
+        client = MLBClient()
+        feed = client.get_live_feed(game_id)
+        if not feed: 
+            print("❌ Error: No se pudo obtener el feed del juego.")
+            return
+            
+        game_data = feed.get('gameData', {})
+        teams_box = feed.get('liveData', {}).get('boxscore', {}).get('teams', {})
         
-    game_data = feed.get('gameData', {})
-    teams_box = feed.get('liveData', {}).get('boxscore', {}).get('teams', {})
-    
-    # Extraer lineups
-    away_batters = [{'id': bid, 'name': game_data.get('players', {}).get(f"ID{bid}", {}).get('fullName', f"Unknown {bid}")} 
-                    for bid in teams_box.get('away', {}).get('battingOrder', [])]
-                    
-    home_batters = [{'id': bid, 'name': game_data.get('players', {}).get(f"ID{bid}", {}).get('fullName', f"Unknown {bid}")} 
-                    for bid in teams_box.get('home', {}).get('battingOrder', [])]
-                    
-    away_team = game_data.get('teams', {}).get('away', {}).get('name', 'Away Team')
-    home_team = game_data.get('teams', {}).get('home', {}).get('name', 'Home Team')
-    
-    print_last_game(away_team, away_batters)
-    print_last_game(home_team, home_batters)
+        away_team = game_data.get('teams', {}).get('away', {}).get('name', 'Away Team')
+        home_team = game_data.get('teams', {}).get('home', {}).get('name', 'Home Team')
+        
+        # Validación: Si no hay battingOrder oficial aún, usamos todos los bateadores activos (batters)
+        away_bids = teams_box.get('away', {}).get('battingOrder', [])
+        if not away_bids:
+            away_bids = teams_box.get('away', {}).get('batters', [])
+            
+        home_bids = teams_box.get('home', {}).get('battingOrder', [])
+        if not home_bids:
+            home_bids = teams_box.get('home', {}).get('batters', [])
+            
+        away_batters = [{'id': bid, 'name': game_data.get('players', {}).get(f"ID{bid}", {}).get('fullName', f"Unknown {bid}")} 
+                        for bid in away_bids]
+                        
+        home_batters = [{'id': bid, 'name': game_data.get('players', {}).get(f"ID{bid}", {}).get('fullName', f"Unknown {bid}")} 
+                        for bid in home_bids]
+        
+        print_last_game(away_team, away_batters)
+        print_last_game(home_team, home_batters)
+        
+    except Exception as e:
+        print(f"\n❌ Error fatal en la ejecución: {e}")
+
+if __name__ == '__main__':
+    main()
