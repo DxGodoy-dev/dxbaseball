@@ -72,7 +72,7 @@ def print_last_game(team_name, batters):
             if res: print(res)
 
 def main():
-    game_id = 849834
+    game_id = 849839
     print(f"\n🎯 Analizando momentum para el Juego ID: {game_id}...")
     
     try:

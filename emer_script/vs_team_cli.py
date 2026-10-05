@@ -69,7 +69,7 @@ def print_vs_team(team_name, batters, opposing_team_name, opposing_team_id):
                 print(f"{res['name']:<22} | {res['pa']:<4} | {res['avg']:<5} | {res['obp']:<5} | {res['slg']:<5} | {res['ops']:<5} | {res['hr']:<2} | {res['k']:<2} | {res['bb']:<2} {killer}")
 
 def main():
-    game_id = 849834 
+    game_id = 849839 
     print(f"\n🎯 Calculando splits vs Equipo Rival (Juego ID: {game_id})...")
     
     client = MLBClient()

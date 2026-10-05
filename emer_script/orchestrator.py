@@ -15,7 +15,8 @@ def main():
         ("5. LONGEVIDAD DE ABRIDORES", "starter_longevity_cli.py"),
         ("6. DISCIPLINA DE BATEO (DESGASTE)", "batter_discipline_cli.py"),
         ("7. ESTADO DEL BULLPEN (RELEVISTAS)", "bullpen_stats_cli.py"),
-        ("8. MOMENTUM (ÚLTIMO JUEGO)", "last_game_cli.py")
+        ("8. MOMENTUM (ÚLTIMO JUEGO)", "last_game_cli.py"),
+        ("9. ENFRENTAMIENTOS DE SERIE H2H (EQUIPOS)", "series_h2h_cli.py")
     ]
     
     script_dir = Path(__file__).resolve().parent
